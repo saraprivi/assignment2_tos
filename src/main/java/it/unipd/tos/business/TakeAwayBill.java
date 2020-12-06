@@ -63,6 +63,30 @@ public class TakeAwayBill implements TakeAwayBillInterface
         return totalPrice-discount;
     }
 
+    public List<TakeAwayBill> gratisOrder(List<TakeAwayBill> orders)
+    {
+        List<TakeAwayBill> gratis = new ArrayList<>();
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getUser().getAge() < 18 &&
+                    orders.get(i).getTimeSec() > 64800 &&
+                    orders.get(i).getTimeSec() < 68400) {
+                gratis.add(orders.get(i));
+            }
+        }
+        if (gratis.size() > 9) {
+            long times = System.nanoTime();
+            Collections.shuffle(gratis, new Random(times));
+            gratis = gratis.subList(0, 10);
+            for (TakeAwayBill i : gratis) {
+                i.getLista().stream().forEach((a) ->
+                {
+                    a.setPrice(0.00);
+                });
+            }
+        }
+        return gratis;
+    }
+
     public List<MenuItem> getLista()
     {
         return orderList;

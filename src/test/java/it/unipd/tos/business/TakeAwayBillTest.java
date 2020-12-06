@@ -27,6 +27,10 @@ public class TakeAwayBillTest
     public static TakeAwayBill orderDiscountT10Test;
     public static List<MenuItem> orderListLessThan10Test;
     public static TakeAwayBill orderLessThan10Test;
+    public static List<TakeAwayBill> orders;
+    public static List<MenuItem> orderListGratis;
+    public static TakeAwayBill orderGratis;
+
 
     @BeforeClass
     public static void beforeClass() {
@@ -76,6 +80,24 @@ public class TakeAwayBillTest
         }
         User user3 = new User(2,"Sara","Privitera",17);
         orderLessThan10Test = new TakeAwayBill(orderListLessThan10Test, user3, 0);
+
+        //10 ordini gratis #6
+        orders = new ArrayList<>();
+        orderListGratis = new ArrayList<>();
+        for (int i=0; i<6; ++i) {
+            MenuItem item10 = new MenuItem(ItemType.Gelati, "Coppa Nafta", 4.00);
+            MenuItem item11 = new MenuItem(ItemType.Budini, "Pinguino", 10.00);
+            orderListGratis.add(item10);
+            orderListGratis.add(item11);
+        }
+        String [] names = {"a","b","c","d","e","f","g","h","i","l","m","n"};
+        String [] surnames = {"o","p","q","r","s","t","u","v","w","x","y","z"};
+        for (int j=0; j<12; ++j)
+        {
+            User userTmp = new User(j,names[j],surnames[j],17-j);
+            TakeAwayBill gratis = new TakeAwayBill(orderListGratis,userTmp,68000+j);
+            orders.add(gratis);
+        }
     }
 
     @Test
@@ -162,4 +184,18 @@ public class TakeAwayBillTest
             e.getMessage();
         }
     }
+
+    @Test
+    public void verifyGratis()
+    {
+        assertEquals(10, orders.get(0).gratisOrder(orders).size());
+        List<TakeAwayBill> tmp = orders.get(0).gratisOrder(orders);
+        try {
+            for(int i=0;i< tmp.size();++i)
+                assertEquals(0.00, tmp.get(i).getOrderPrice(tmp.get(i).getLista(), tmp.get(i).getUser()), 0);
+        } catch (RestaurantBillException e) {
+            e.getMessage();
+        }
+    }
+
 }
