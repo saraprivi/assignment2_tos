@@ -57,6 +57,9 @@ public class TakeAwayBill implements TakeAwayBillInterface
         if(totalGelatieBudini>50.00){
             discount+=((totalPrice/100.00)*10);
         }
+        if (totalPrice > 0.0 && totalPrice < 10.0) {
+            discount -= 0.5;
+        }
         return totalPrice-discount;
     }
 

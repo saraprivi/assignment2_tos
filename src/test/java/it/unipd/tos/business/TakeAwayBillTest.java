@@ -25,13 +25,16 @@ public class TakeAwayBillTest
     public static TakeAwayBill orderDiscountTest;
     public static List<MenuItem> perSconto10;
     public static TakeAwayBill orderDiscountT10Test;
+    public static List<MenuItem> orderListLessThan10Test;
+    public static TakeAwayBill orderLessThan10Test;
 
     @BeforeClass
     public static void beforeClass() {
         orderList = new ArrayList<>();
         MenuItem item = new MenuItem(ItemType.Bevande,"coca cola", 2.00);
-        orderList.add(item);
-        orderList.add(item);
+        for( int i=0; i<5; i++){
+            orderList.add(item);
+        }
         orderTotal = new TakeAwayBill(orderList,new User(1, "Sara", "Privitera", 21),12300);
 
         //metà sul prodotto meno caro #2
@@ -60,11 +63,24 @@ public class TakeAwayBillTest
         }
         User user2 = new User(2,"Sara","Privitera",17);
         orderDiscountT10Test = new TakeAwayBill(perSconto10, user2, 0);
+
+        //sconto se meno di 10
+        orderListLessThan10Test = new ArrayList<>();
+        for (int i = 0; i < 2; ++i) {
+            MenuItem item7 = new MenuItem(ItemType.Gelati, "Coppa Nafta", 1.50);
+            MenuItem item8 = new MenuItem(ItemType.Budini, "Pinguino", 1.00);
+            MenuItem item9 = new MenuItem(ItemType.Bevande, "Coca cola", 2.00);
+            orderListLessThan10Test.add(item7);
+            orderListLessThan10Test.add(item8);
+            orderListLessThan10Test.add(item9);
+        }
+        User user3 = new User(2,"Sara","Privitera",17);
+        orderLessThan10Test = new TakeAwayBill(orderListLessThan10Test, user3, 0);
     }
 
     @Test
     public void totalTest() throws RestaurantBillException {
-        assertEquals(4.00, orderTotal.getOrderPrice(orderList,orderTotal.getUser()),0.00);
+        assertEquals(10.00, orderTotal.getOrderPrice(orderList,orderTotal.getUser()),0.00);
     }
     @Test
     public void getUserTest()
@@ -136,5 +152,14 @@ public class TakeAwayBillTest
         );
         TakeAwayBill order = new TakeAwayBill(items, new User(5, "Sara", "Privitera",21),0);
         order.getOrderPrice(items, new User(5, "Sara", "Privitera",21));
+    }
+
+    @Test
+    public void lessThan10Test() {
+        try {
+            assertEquals(9.50, orderLessThan10Test.getOrderPrice(orderLessThan10Test.getLista(), orderLessThan10Test.getUser()), 0);
+        } catch (RestaurantBillException e) {
+            e.getMessage();
+        }
     }
 }
