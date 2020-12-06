@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="6.11.2">
+<file name="/home/sara/assignment2_tos/src/main/java/it/unipd/tos/ItemType.java">
+</file>
+<file name="/home/sara/assignment2_tos/src/main/java/it/unipd/tos/User.java">
+</file>
+<file name="/home/sara/assignment2_tos/src/main/java/it/unipd/tos/business/TakeAwayBillInterface.java">
+</file>
+<file name="/home/sara/assignment2_tos/src/main/java/it/unipd/tos/business/RestaurantBillException.java">
+</file>
+<file name="/home/sara/assignment2_tos/src/main/java/it/unipd/tos/business/TakeAwayBill.java">
+</file>
+<file name="/home/sara/assignment2_tos/src/main/java/it/unipd/tos/MenuItem.java">
+</file>
+</checkstyle>

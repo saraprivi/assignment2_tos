@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TakeAwayBill.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">icecream-shop-manager</a> &gt; <a href="index.source.html" class="el_package">it.unipd.tos.business</a> &gt; <span class="el_source">TakeAwayBill.java</span></div><h1>TakeAwayBill.java</h1><pre class="source lang-java linenums">////////////////////////////////////////////////////////////////////
+// SARA PRIVITERA 1201157
+////////////////////////////////////////////////////////////////////
+package it.unipd.tos.business;
+
+import it.unipd.tos.ItemType;
+import it.unipd.tos.MenuItem;
+import it.unipd.tos.User;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
+public class TakeAwayBill implements TakeAwayBillInterface
+{
+    private List&lt;MenuItem&gt; orderList;
+    private User user;
+    private int timeSec;
+
+    public TakeAwayBill(List&lt;MenuItem&gt; orderList, User user, int timeSec)
+<span class="fc" id="L21">    {</span>
+<span class="fc" id="L22">        this.orderList = new ArrayList&lt;&gt;(orderList);</span>
+<span class="fc" id="L23">        this.user = user;</span>
+<span class="fc" id="L24">        this.timeSec = timeSec;</span>
+<span class="fc" id="L25">    }</span>
+
+    public double getOrderPrice(List&lt;MenuItem&gt; orderList, User user)
+            throws RestaurantBillException {
+<span class="fc" id="L29">        double totalPrice = 0.0;</span>
+
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        for(MenuItem item : orderList) {</span>
+<span class="fc" id="L32">            totalPrice += item.getPrice();</span>
+<span class="fc" id="L33">        }</span>
+<span class="fc" id="L34">        return totalPrice;</span>
+    }
+
+    public List&lt;MenuItem&gt; getLista()
+    {
+<span class="fc" id="L39">        return orderList;</span>
+    }
+
+    public User getUser() {
+<span class="fc" id="L43">        return user;</span>
+    }
+
+    public int getTimeSec() {
+<span class="fc" id="L47">        return timeSec;</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
