@@ -97,4 +97,44 @@ public class TakeAwayBillTest
             e.getMessage();
         }
     }
+
+    @Test(expected = RestaurantBillException.class)
+    public void testNoMoreThan30ElementsAllowed() throws RestaurantBillException {
+        List<MenuItem> items = List.of(
+                new MenuItem(ItemType.Gelati, "gelato 1", 1),
+                new MenuItem(ItemType.Gelati, "gelato 2", 2),
+                new MenuItem(ItemType.Gelati, "gelato 3", 3),
+                new MenuItem(ItemType.Gelati, "gelato 4", 1),
+                new MenuItem(ItemType.Gelati, "gelato 5", 2),
+                new MenuItem(ItemType.Gelati, "gelato 6", 3),
+                new MenuItem(ItemType.Gelati, "gelato 7", 1),
+                new MenuItem(ItemType.Gelati, "gelato 8", 2),
+                new MenuItem(ItemType.Bevande, "bevanda 9", 3),
+                new MenuItem(ItemType.Gelati, "gelato 10", 1),
+                new MenuItem(ItemType.Gelati, "gelato 11", 1),
+                new MenuItem(ItemType.Gelati, "gelato 12", 2),
+                new MenuItem(ItemType.Budini, "budino 13", 1),
+                new MenuItem(ItemType.Gelati, "gelato 14", 3),
+                new MenuItem(ItemType.Gelati, "gelato 15", 4),
+                new MenuItem(ItemType.Gelati, "gelato 16", 6),
+                new MenuItem(ItemType.Gelati, "gelato 17", 1),
+                new MenuItem(ItemType.Bevande, "bevanda 18", 1),
+                new MenuItem(ItemType.Gelati, "gelato 19", 1),
+                new MenuItem(ItemType.Gelati, "gelato 20", 2),
+                new MenuItem(ItemType.Gelati, "gelato 21", 2),
+                new MenuItem(ItemType.Gelati, "gelato 22", 2),
+                new MenuItem(ItemType.Gelati, "gelato 23", 3),
+                new MenuItem(ItemType.Gelati, "gelato 24", 2),
+                new MenuItem(ItemType.Gelati, "gelato 25", 2),
+                new MenuItem(ItemType.Gelati, "gelato 26", 2),
+                new MenuItem(ItemType.Gelati, "gelato 27", 2),
+                new MenuItem(ItemType.Gelati, "gelato 28", 2),
+                new MenuItem(ItemType.Gelati, "gelato 29", 9),
+                new MenuItem(ItemType.Gelati, "gelato 30", 3),
+                new MenuItem(ItemType.Budini, "budino 4", 1),
+                new MenuItem(ItemType.Bevande, "bevanda 5", 3)
+        );
+        TakeAwayBill order = new TakeAwayBill(items, new User(5, "Sara", "Privitera",21),0);
+        order.getOrderPrice(items, new User(5, "Sara", "Privitera",21));
+    }
 }
