@@ -23,6 +23,8 @@ public class TakeAwayBillTest
     public static TakeAwayBill orderTotal;
     public static List<MenuItem> perScontoGelato;
     public static TakeAwayBill orderDiscountTest;
+    public static List<MenuItem> perSconto10;
+    public static TakeAwayBill orderDiscountT10Test;
 
     @BeforeClass
     public static void beforeClass() {
@@ -46,6 +48,18 @@ public class TakeAwayBillTest
         User user = new User(1, "Sara", "Privitera", 21);
         orderDiscountTest = new TakeAwayBill(perScontoGelato, user, 0);
 
+        //sconto 10% #3
+        perSconto10 = new ArrayList<>();
+        for (int i = 0; i < 2; ++i) {
+            MenuItem item4 = new MenuItem(ItemType.Gelati, "Coppa Nafta", 15.00);
+            MenuItem item5 = new MenuItem(ItemType.Budini, "Pinguino", 15.00);
+            MenuItem item6 = new MenuItem(ItemType.Bevande, "Coca cola", 20.00);
+            perSconto10.add(item4);
+            perSconto10.add(item5);
+            perSconto10.add(item6);
+        }
+        User user2 = new User(2,"Sara","Privitera",17);
+        orderDiscountT10Test = new TakeAwayBill(perSconto10, user2, 0);
     }
 
     @Test
@@ -57,6 +71,10 @@ public class TakeAwayBillTest
     {
         assertEquals("Sara",orderTotal.getUser().getName());
         assertEquals("Privitera",orderTotal.getUser().getSurname());
+    }
+    @Test
+    public void discount10Test() throws RestaurantBillException{
+            assertEquals(90.00, orderDiscountT10Test.getOrderPrice(orderDiscountT10Test.getLista(), orderDiscountT10Test.getUser()), 0.00);
     }
 
     @Test
@@ -74,7 +92,7 @@ public class TakeAwayBillTest
     @Test
     public void orderDiscountTest() {
         try {
-            assertEquals(69.50, orderDiscountTest.getOrderPrice(perScontoGelato, orderDiscountTest.getUser()), 0);
+            assertEquals(62.30, orderDiscountTest.getOrderPrice(perScontoGelato, orderDiscountTest.getUser()), 0);
         } catch (RestaurantBillException e) {
             e.getMessage();
         }
